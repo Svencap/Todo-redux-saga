@@ -1,13 +1,15 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getDatabase } from 'firebase/database';
+import { getStorage } from "firebase/storage";
+import { ref } from "firebase/storage";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+
 const firebaseConfig = {
   apiKey: "AIzaSyABuyMFMtWy5hgug0Jdbt_Mi3KSgPFo00I",
   authDomain: "todo-redux-saga-b7260.firebaseapp.com",
+  databaseURL: "https://todo-redux-saga-b7260-default-rtdb.firebaseio.com",
   projectId: "todo-redux-saga-b7260",
   storageBucket: "todo-redux-saga-b7260.appspot.com",
   messagingSenderId: "888109302983",
@@ -17,3 +19,12 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
+
+export const database = getDatabase(app);
+
+
+export const storage = getStorage(app);
+
+
+export const storRef = ref;

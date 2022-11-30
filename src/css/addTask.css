@@ -1,0 +1,83 @@
+.add_task_form {
+  display: flex;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  padding-top: 25px;
+}
+
+.form_task_title {
+  margin-bottom: 20px;
+  height: 30px;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+
+.form_task_description {
+  border: 1px solid gray;
+  border-radius: 5px;
+  resize: vertical;
+  min-height: 120px;
+}
+
+.input_files {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.label_file {
+  background: rebeccapurple;
+  width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  color: white;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.label_file:hover {
+  cursor: pointer;
+  background: red;
+}
+
+.datetime_container {
+  margin-top: 20px;
+}
+
+label {
+  margin-right: 10px;
+}
+
+.form_task_submit {
+  all: unset;
+  all: unset;
+  display: flex;
+  align-items: center;
+  height: 25px;
+  background: #d1fadf;
+  border-radius: 6px;
+  color: #12b76a;
+  padding-left: 3px;
+  justify-content: center;
+  align-content: center;
+  margin-top: 10px;
+}
+
+.form_task_submit:hover {
+  opacity: 0.8;
+  cursor: pointer;
+  background: #27c25b;
+  color: white;
+}
+
+.sub_tasks {
+  
+}
