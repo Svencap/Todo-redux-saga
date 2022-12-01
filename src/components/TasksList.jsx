@@ -14,7 +14,6 @@ const TaskList = () => {
   const developmentTasks = tasks.filter(
     ({ status }) => status === "Development"
   );
-  console.log(developmentTasks);
   const doneTasks = tasks.filter(({ status }) => status === "Done");
 
   return (

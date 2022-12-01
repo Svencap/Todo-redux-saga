@@ -31,12 +31,24 @@ const AddTask = ({ active, setActive }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(files);
-    const data = { id, title, description, files, status: 'Queue', expirationDate, subTasks: reduceSubtasks };
+    const data = {
+      id,
+      title,
+      description,
+      files,
+      status: "Queue",
+      expirationDate,
+      createdDate: moment.now(),
+      priority: priority.value,
+      subTasks: reduceSubtasks,
+    };
+
     dispatch(uploadFiles(data));
     // dispatch(addTask(data));
     setActive(false);
   };
+
+  const [show, setShow] = useState(false);
 
   return (
     <div className="add_task_form">

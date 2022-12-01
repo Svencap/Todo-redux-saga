@@ -41,7 +41,7 @@ function App() {
           <TaskList />
         </div>
         <Modal active={modalActive} setActive={setModalActive}>
-          <AddTask setActive={setModalActive} />
+          <AddTask active={modalActive} setActive={setModalActive} />
         </Modal>
       </div>
   );
