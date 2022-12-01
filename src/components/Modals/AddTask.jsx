@@ -1,20 +1,28 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { v4 } from "uuid";
 import { addTask, uploadFiles } from "../../redux/actions/actionCreator";
 import SubTasks from "../SubTasks";
-import axios from "axios";
+import "moment/locale/ru";
+import moment from "moment";
+import SelectPriority from "../SelectPriority";
 
 import "../../css/addTask.css";
 
-const AddTask = ({ setActive }) => {
+const AddTask = ({ active, setActive }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [expirationDate, setExpirationDate] = useState("");
   const [files, setFiles] = useState([]);
 
-  const [subTaskTitle, setSubTaskTitle] = useState('');
+  const subtaskRef = useRef();
+
+  const [subTaskTitle, setSubTaskTitle] = useState("");
   const [subTasks, setSubTasks] = useState([]);
+  const [priority, setPriority] = useState({
+    value: 0,
+    text: "Выберите приоритет",
+  });
 
   const dispatch = useDispatch();
 
