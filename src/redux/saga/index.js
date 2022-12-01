@@ -12,9 +12,9 @@ export function* workerSaga() {
 }
 
 export function* workerAddTask({ payload }) {
-    const { id, title, description, expirationDate, status, subTasks, files } = payload;
+    const { id, title, description, expirationDate, priority, createdDate, status, subTasks, files } = payload;
     const filesUrl = yield downloadFiles(files);
-    const data = yield { id, title, description, expirationDate, status, subTasks, files: filesUrl };
+    const data = { id, title, description, expirationDate, priority, createdDate, status, subTasks, files: filesUrl };
     yield addTaskToDB(id, data);
     yield put(addTask(data));
     yield;
@@ -29,7 +29,7 @@ export function* workerUpdateTask({ payload }) {
 export function* watchSaga() {
     yield takeEvery(GET_TASKS, workerSaga);
     yield takeEvery(UPLOAD_FILES, workerAddTask);
-    yield takeEvery(CHANGE_STATUS_DEVELOPMENT, workerUpdateTask)
+    yield takeEvery(CHANGE_STATUS_DEVELOPMENT, workerUpdateTask);
 }
 
 export default function* rootSaga() {
