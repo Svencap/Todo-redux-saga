@@ -35,7 +35,7 @@ const TaskList = () => {
         <Droppable droppableId="to_do">
           {(provided) => {
             return (
-              <div
+                <div
                 {...provided.droppableProps}
                 ref={provided.innerRef}
                 className="TO_DO"
@@ -51,6 +51,7 @@ const TaskList = () => {
                     expirationDate={task.expirationDate}
                     files={task.files}
                     index={idx}
+                    priority={task.priority}
                   />
                 ))}
                 {provided.placeholder}
@@ -77,6 +78,8 @@ const TaskList = () => {
                     expirationDate={task.expirationDate}
                     files={task.files}
                     index={idx}
+                    createdDate={task.createdDate}
+                    priority={task.priority}
                   />
                 ))}
                 {provided.placeholder}
@@ -103,6 +106,7 @@ const TaskList = () => {
                     expirationDate={task.expirationDate}
                     files={task.files}
                     index={idx}
+                    priority={task.priority}
                   />
                 ))}
                 {provided.placeholder}
