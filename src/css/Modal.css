@@ -1,36 +1,48 @@
 .modal {
-    height: 100vh;
-    width: 100vw;
-    background-color: rgba(0, 0, 0, 0.4);
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: 0.5s;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.5s;
 }
 
 .modal_content {
-    padding: 20px;
-    border-radius: 12px;
-    background-color: white;
-    max-width: 300px;
-    min-height: 400px;
-    transform: scale(0.5);
-    display: flex;
-    justify-content: center;
-    transition: 0.4s all;
+  padding: 20px;
+  border-radius: 12px;
+  background-color: white;
+  max-width: 300px;
+  transform: scale(0.5);
+  display: flex;
+  justify-content: center;
+  transition: 0.4s all;
 }
 
 .modal_content.active {
-    transform: scale(1);
-    margin: 0px 10px 0px 10px;
+  transform: scale(1);
+  margin: 0px 10px 0px 10px;
+  position: relative;
 }
 
 .modal.active {
-    opacity: 1;
-    pointer-events: all;
+  opacity: 1;
+  pointer-events: all;
+}
+
+.close_modal {
+  all: unset;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.close_modal:hover {
+    opacity: 0.5;
 }

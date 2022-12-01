@@ -1,55 +1,49 @@
 .container_app {
-    max-width: 1200px;
-    margin: 0 auto;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .header {
-    margin: 20px 0px 20px 0px;
-    display: flex;
-    justify-content: space-between;
+  margin: 20px 0px 20px 0px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .search_task {
-    width: 300px;
-    margin-left: 10px;
+  width: 300px;
+  margin-left: 10px;
 }
 
 .input_search {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 8px;
-    border-radius: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px;
+  border-radius: 8px;
 }
-
-
 
 .submit_task {
-    all: unset;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 4px;
-    background: #E5FFEE;
-    color: #27C25B;
-    padding: 0px 10px 0px 10px;
+  all: unset;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  background: #e5ffee;
+  color: #27c25b;
+  padding: 0px 10px 0px 10px;
 }
-
 
 .container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 36px;
-    justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 36px;
+  justify-content: center;
 }
-
-
 
 .TO_DO {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }
-
 
 .Task {
   display: flex;
@@ -65,12 +59,14 @@
 .content {
   display: flex;
   flex-direction: column;
-  margin: 20px;
+  margin: 10px 20px 10px 20px;
 }
 
 .task_info {
   display: flex;
   flex-direction: column;
+  width: 220px;
+  word-wrap: break-word
 }
 
 .title_task {
@@ -86,43 +82,236 @@
   font-size: 14px;
   color: #98a2b3;
   letter-spacing: -0.02em;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 }
 
 .description {
   font-weight: 500;
   font-size: 15px;
-  color: #98A2B3;
+  color: #98a2b3;
   letter-spacing: -0.02em;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 }
 
 .selected_files {
   display: flex;
-  gap: 8px;
-  margin-bottom: 16px;
   flex-wrap: wrap;
 }
 
 .file {
-    display: flex;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
 }
 
 .file_name {
-    color: #98A2B3;
+  color: #98a2b3;
+  font-size: 14px;
 }
 
 .comments_container {
   display: flex;
   align-items: center;
   gap: 11px;
-  color: #98A2B3;
+  color: #98a2b3;
 }
 
 .sub_task {
-    color: #98A2B3;
+  color: #98a2b3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .subtasks {
-    margin-bottom: 5px;
+  margin-bottom: 5px;
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.expiration_date {
+  background-color: #ec9488;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100px;
+  padding: 1px 0px;
+  border-radius: 5px;
+  font-size: 14px;
+  line-height: 24px;
+  margin: 10px 0px;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.status-prioriry {
+  display: flex;
+  align-items: center;
+}
+
+.edit_task {
+  cursor: pointer;
+}
+
+.edit_task:hover {
+  opacity: 0.7;
+}
+
+.task_status {
+  background: #ffbb00;
+  border-radius: 20px;
+  padding: 0px 5px;
+  font-size: 14px;
+}
+
+.task_buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.finished_task {
+  all: unset;
+  display: flex;
+  align-items: center;
+  height: 25px;
+  border-radius: 6px;
+  background: #d1fadf;
+  color: #12b76a;
+  padding-left: 5px;
+  padding-right: 5px;
+  cursor: pointer;
+}
+
+.finished_task:hover {
+  background: #27c25b;
+  color: white;
+}
+
+.delete_task {
+  all: unset;
+  display: flex;
+  align-items: center;
+  height: 25px;
+  border-radius: 6px;
+  background: #ffebf1;
+  color: #fc0d54;
+  padding-left: 5px;
+  padding-right: 5px;
+  cursor: pointer;
+}
+
+.delete_task:hover {
+  color: white;
+  background: #fc0d54;
+}
+
+/* Customize Select */
+
+.select-menu {
+  width: 200px;
+}
+
+.select-menu .select-btn {
+  display: flex;
+  background: #fff;
+  padding: 5px 15px;
+  font-size: 14px;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.select-btn i {
+  transition: all 0.4s ease;
+}
+
+.select-menu.active .select-btn i {
+  transform: rotate(-180deg);
+  transition: all 0.4s ease;
+}
+
+.select-menu .options {
+  position: relative;
+  padding: 5px 15px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  display: none;
+}
+
+.options .option {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  padding: 0 16px;
+  border-radius: 8px;
+  background: #fff;
+  height: 30px;
+}
+
+.options .option:hover {
+  background: #f2f2f2;
+}
+
+.option .option-text {
+  font-size: 16px;
+  color: #333;
+}
+
+.priority_normal {
+  width: 50px;
+  height: 8px;
+  background: #5dbf48;
+  border-radius: 14px;
+  margin-left: 8px;
+}
+
+.priority_high {
+  width: 50px;
+  height: 8px;
+  background: #ED5940;
+  border-radius: 14px;
+  margin-left: 8px;
+}
+
+.subtasks_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.add_subtask {
+  all: unset;
+  cursor: pointer;
+}
+
+
+
+.text_subtask, .text_subtask:focus {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  box-shadow: 0 0 5px rgb(0 0 0 / 10%);
+  outline: none;
+  display: block;
+  width: 180px;
+}
+
+.delete_selected_file {
+  all: unset;
+  cursor: pointer;
+}
+.delete_selected_file:hover {
+  opacity: 0.5;
 }
