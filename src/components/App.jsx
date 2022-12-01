@@ -7,11 +7,14 @@ import { v4 } from "uuid";
 import Modal from "./Modals/Modal";
 import AddTask from "./Modals/AddTask";
 import TaskList from "./TasksList";
+import DeleteTask from "./Modals/DeleteTask";
 
 function App() {
   const dispatch = useDispatch();
 
   const [modalActive, setModalActive] = useState(false);
+
+  const [activeDeleteModal, setActiveDeleteModal] = useState(true);
 
   useEffect(() => {
     dispatch(getTasks());

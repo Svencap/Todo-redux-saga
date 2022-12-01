@@ -1,21 +1,81 @@
+import { useState } from "react";
+
 import SubTasks from "./SubTasks";
 import { Draggable } from "react-beautiful-dnd";
+import ActiveStatus from "./Statuses/Active";
+import PriorityNormal from "./Statuses/PriorityNormal";
+import PriorityHigh from "./Statuses/PriorityHigh";
+import "moment/locale/ru";
+import moment from "moment";
+import Modal from "./Modals/Modal";
+import DeleteTask from "./Modals/DeleteTask";
 
-const Task = ({ id, title, description, expirationDate, subTasks, files, index }) => {
+const Task = ({
+  id,
+  title,
+  description,
+  expirationDate,
+  createdDate,
+  subTasks,
+  files,
+  index,
+  priority,
+}) => {
+  const [activeDeleteModal, setActiveDeleteModal] = useState(false);
+
   return (
     <Draggable key={id} index={index} draggableId={id}>
       {(provided) => {
         return (
-          <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className="Task">
-            <div className="content">
-              <div className="task_info">
-                <span className="title_task">{title}</span>
-                <span className="created_date">{expirationDate}</span>
-                <div className="description">{description}</div>
-                <SubTasks subTasks={subTasks} />
-                <div className="selected_files">
-                  {files?.length > 0
-                    ? files.map(({ id, name, url }) => {
+          <>
+            <Modal active={activeDeleteModal} setActive={setActiveDeleteModal}>
+              <DeleteTask
+                active={activeDeleteModal}
+                setActive={setActiveDeleteModal}
+              />
+            </Modal>
+            <div
+              ref={provided.innerRef}
+              {...provided.draggableProps}
+              {...provided.dragHandleProps}
+              className="Task"
+            >
+              <div className="content">
+                <div className="task_info">
+                  <div className="status">
+                    <div className="status-prioriry">
+                      <ActiveStatus />
+                      {priority === 0 ? <PriorityNormal /> : <PriorityHigh />}
+                    </div>
+                    <div className="edit_task">
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M11.0487 3.35143H5.04873C3.06051 3.35143 1.44873 4.96321 1.44873 6.95143V18.9515C1.44873 20.9398 3.06051 22.5515 5.04873 22.5515H17.0487C19.037 22.5515 20.6487 20.9398 20.6487 18.9515L20.6487 12.9515M7.44873 16.5514L11.8147 15.6717C12.0465 15.625 12.2593 15.5109 12.4264 15.3437L22.2001 5.56461C22.6687 5.09576 22.6684 4.33577 22.1994 3.86731L20.129 1.79923C19.6602 1.33097 18.9006 1.33129 18.4322 1.79995L8.65749 11.58C8.49068 11.7469 8.37678 11.9593 8.33003 12.1906L7.44873 16.5514Z"
+                          stroke="black"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                  <span className="title_task">{title}</span>
+                  <span className="created_date">
+                    {moment(createdDate).locale("ru").format("ll")}
+                  </span>
+                  {description !== "" ? (
+                    <div className="description">{description}</div>
+                  ) : null}
+                  <SubTasks subTasks={subTasks} />
+                  {files?.length ? (
+                    <div className="selected_files">
+                      {files.map(({ id, name, url }) => {
                         return (
                           <div key={id} className="file">
                             <a href={url} download="true">
@@ -44,30 +104,54 @@ const Task = ({ id, title, description, expirationDate, subTasks, files, index }
                             </a>
                           </div>
                         );
-                      })
-                    : null}
+                      })}
+                    </div>
+                  ) : null}
+                  <div className="expiration_date">
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M12 2C6.486 2 2 6.486 2 12C2 17.514 6.486 22 12 22C17.514 22 22 17.514 22 12C22 6.486 17.514 2 12 2ZM12 20C7.589 20 4 16.411 4 12C4 7.589 7.589 4 12 4C16.411 4 20 7.589 20 12C20 16.411 16.411 20 12 20Z"
+                        fill="white"
+                      />
+                      <path
+                        d="M13 7H11V12.414L14.293 15.707L15.707 14.293L13 11.586V7Z"
+                        fill="white"
+                      />
+                    </svg>
+                    {moment(expirationDate).locale("ru").format("l")}
+                  </div>
+                  <div className="task_buttons">
+                    <button className="finished_task">Завершить</button>
+                    <button onClick={() => setActiveDeleteModal(true)} className="delete_task">Удалить</button>
+                  </div>
+                </div>
+                <div className="comments_container">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8 12H8.01M12 12H12.01M16 12H16.01M21 12C21 16.4183 16.9706 20 12 20C10.4607 20 9.01172 19.6565 7.74467 19.0511L3 20L4.39499 16.28C3.51156 15.0423 3 13.5743 3 12C3 7.58172 7.02944 4 12 4C16.9706 4 21 7.58172 21 12Z"
+                      stroke="#98A2B3"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  <span className="count_comments">0</span>
                 </div>
               </div>
-              <div className="comments_container">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M8 12H8.01M12 12H12.01M16 12H16.01M21 12C21 16.4183 16.9706 20 12 20C10.4607 20 9.01172 19.6565 7.74467 19.0511L3 20L4.39499 16.28C3.51156 15.0423 3 13.5743 3 12C3 7.58172 7.02944 4 12 4C16.9706 4 21 7.58172 21 12Z"
-                    stroke="#98A2B3"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-                <span className="count_comments">0</span>
-              </div>
             </div>
-          </div>
+          </>
         );
       }}
     </Draggable>

@@ -1,0 +1,23 @@
+.delete_wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.delete_modal_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+
+.delete_modal_body {
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.delete_modal_buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+}
