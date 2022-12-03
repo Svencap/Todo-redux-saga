@@ -19,7 +19,7 @@ export function* workerAddTask({ payload }) {
     const filesUrl = yield downloadFiles(taskId, files);
     const task = { id, title, description, expirationDate, priority, createdDate, status, subTasks, files: filesUrl };
     yield addTaskToDB(taskId, task);
-    yield put(addTask(data));
+    yield put(addTask(task));
     yield;
 }
 

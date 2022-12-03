@@ -200,7 +200,7 @@ const AddTask = ({ active, setActive }) => {
                 return [
                   ...prevFiles,
                   { id: `${v4()}_${selectedFile?.name}`, selectedFile },
-                ].filter(({ selectedFile }) => selectedFile);
+                ]
               })
             }
             name="file"
