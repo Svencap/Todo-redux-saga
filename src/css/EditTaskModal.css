@@ -1,0 +1,17 @@
+.edit_buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.attached_files_header {
+  font-size: 14px;
+}
+
+.files {
+  margin-top: 10px;
+}
+
+.edit_selected_files {
+  margin-top: 10px;
+}
