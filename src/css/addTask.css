@@ -97,6 +97,12 @@ label {
   all: unset;
   display: flex;
   align-items: center;
+
+}
+
+
+.unselect_subtask:hover {
+  opacity: 0.6;
 }
 
 .sub_task_title {
@@ -108,4 +114,5 @@ label {
 .selected {
   display: flex;
   align-items: center;
+  gap: 3px;
 }
