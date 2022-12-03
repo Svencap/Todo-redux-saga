@@ -27,7 +27,13 @@ const AddTask = ({ active, setActive }) => {
   const dispatch = useDispatch();
 
   const id = v4();
-  const reduceSubtasks = subTasks.map((name) => ({ id, name }));
+  const reduceSubtasks = subTasks.map((name) => {
+    if (typeof name === 'object') {
+      return name;
+    }
+    return { generalTaskId: id, id: v4(), name };
+  });
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,16 +45,27 @@ const AddTask = ({ active, setActive }) => {
       status: "Queue",
       expirationDate,
       createdDate: moment.now(),
-      priority: priority.value,
+      priority: priority,
       subTasks: reduceSubtasks,
     };
 
-    dispatch(uploadFiles(data));
-    // dispatch(addTask(data));
+    dispatch(uploadFiles({ taskId: id, data }));
+    setTitle("");
+    setDescription('');
+    setExpirationDate('');
+    setFiles([]);
+    setSubTaskTitle('');
+    setSubTasks([]);
     setActive(false);
   };
 
   const [show, setShow] = useState(false);
+
+
+  const deleteSelectedFile = (id) => {
+    const result = files.filter((file) => file.id !== id);
+    setFiles(result);
+  };
 
   return (
     <div className="add_task_form">
@@ -72,7 +89,7 @@ const AddTask = ({ active, setActive }) => {
           {subTasks.length ? (
             <div className="subtasks">
               Список
-              <SubTasks active={active} subTasks={reduceSubtasks} />
+              <SubTasks key={'new_subtask'} active={active} setNewTasks={setSubTasks} subTasks={reduceSubtasks} />
             </div>
           ) : null}
           <div className="subtasks_wrapper">
@@ -137,7 +154,9 @@ const AddTask = ({ active, setActive }) => {
                 </div>
                 <button
                   className="delete_selected_file"
-                  // onClick={() => deleteFile(id)}
+                  onClick={() => {
+                    deleteSelectedFile(id);
+                  }}
                 >
                   <svg
                     width="24"
