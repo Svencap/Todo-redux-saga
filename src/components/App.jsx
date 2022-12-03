@@ -14,8 +14,6 @@ function App() {
 
   const [modalActive, setModalActive] = useState(false);
 
-  const [activeDeleteModal, setActiveDeleteModal] = useState(true);
-
   useEffect(() => {
     dispatch(getTasks());
   }, [dispatch]);
