@@ -1,10 +1,12 @@
 import { takeEvery, put } from "@redux-saga/core/effects";
-import { GET_TASKS, ADD_TASK, UPLOAD_FILES, CHANGE_STATUS_DEVELOPMENT } from "../contants";
+import { GET_TASKS, ADD_TASK, UPLOAD_FILES, CHANGE_STATUS_DEVELOPMENT, DELETE_TASK, DELETE_SUBTASK, DELETE_FILE } from "../contants";
 import { getDataTasks } from "../functions/getDataTasks";
 import { addTaskToDB } from "../functions/addTaskToDB";
 import downloadFiles from "../functions/downloadFiles";
 import { setTasks, addTask } from "../actions/actionCreator";
 import updateToDatabase from "../functions/updateTaskToDB";
+import deleteTask from "../functions/deleteTask";
+import deleteFileInStorage from "../functions/deleteFile";
 
 export function* workerSaga() {
     const data = yield getDataTasks();
@@ -12,10 +14,11 @@ export function* workerSaga() {
 }
 
 export function* workerAddTask({ payload }) {
-    const { id, title, description, expirationDate, priority, createdDate, status, subTasks, files } = payload;
-    const filesUrl = yield downloadFiles(files);
-    const data = { id, title, description, expirationDate, priority, createdDate, status, subTasks, files: filesUrl };
-    yield addTaskToDB(id, data);
+    const { taskId, data } = payload;
+    const { id, title, description, expirationDate, priority, createdDate, status, subTasks, files } = data;
+    const filesUrl = yield downloadFiles(taskId, files);
+    const task = { id, title, description, expirationDate, priority, createdDate, status, subTasks, files: filesUrl };
+    yield addTaskToDB(taskId, task);
     yield put(addTask(data));
     yield;
 }
@@ -26,10 +29,32 @@ export function* workerUpdateTask({ payload }) {
     yield;
 }
 
+export function* workerDeleteTask({ payload }) {
+    const { id, files } = payload;
+    yield deleteTask(id, files);
+    yield;
+}
+
+
+export function* workerDeleteSubTask({ payload }) {
+    const { generalTaskId, newTasks } = payload;;
+    yield updateToDatabase(generalTaskId, { subTasks: newTasks });
+    yield;
+}
+
+
+export function* workerDeleteFile({ payload }) {
+    const { taskId, id, getFiles } = payload;
+    yield deleteFileInStorage(taskId, id, getFiles);
+}
+
 export function* watchSaga() {
     yield takeEvery(GET_TASKS, workerSaga);
     yield takeEvery(UPLOAD_FILES, workerAddTask);
     yield takeEvery(CHANGE_STATUS_DEVELOPMENT, workerUpdateTask);
+    yield takeEvery(DELETE_TASK, workerDeleteTask);
+    // yield takeEvery(DELETE_SUBTASK, workerDeleteSubTask)
+    // yield takeEvery(DELETE_FILE, workerDeleteFile);
 }
 
 export default function* rootSaga() {
