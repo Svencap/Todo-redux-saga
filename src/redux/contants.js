@@ -4,3 +4,6 @@ export const ADD_TASK = 'ADD_TASK';
 export const UPLOAD_FILES = 'UPLOAD_FILES';
 export const SORTED_TASKS = 'SORTED_TASKS';
 export const CHANGE_STATUS_DEVELOPMENT = 'CHANGE_STATUS_DEVELOPMENT';
+export const DELETE_TASK = 'DELETE_TASK';
+export const DELETE_SUBTASK = 'DELETE_SUBTASK';
+export const DELETE_FILE = 'DELETE_FILE';
