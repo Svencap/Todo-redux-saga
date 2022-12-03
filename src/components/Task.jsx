@@ -9,6 +9,7 @@ import "moment/locale/ru";
 import moment from "moment";
 import Modal from "./Modals/Modal";
 import DeleteTask from "./Modals/DeleteTask";
+import EditTask from "./Modals/EditTask";
 
 const Task = ({
   id,
@@ -22,6 +23,7 @@ const Task = ({
   priority,
 }) => {
   const [activeDeleteModal, setActiveDeleteModal] = useState(false);
+  const [activeEditModal, setActiveEditModal] = useState(false);
 
   return (
     <Draggable key={id} index={index} draggableId={id}>
@@ -30,10 +32,16 @@ const Task = ({
           <>
             <Modal active={activeDeleteModal} setActive={setActiveDeleteModal}>
               <DeleteTask
-                active={activeDeleteModal}
                 setActive={setActiveDeleteModal}
+                id={id}
+                files={files}
               />
             </Modal>
+            {activeEditModal ? (
+              <Modal active={activeEditModal} setActive={setActiveEditModal}>
+                <EditTask taskId={id} setActive={setActiveEditModal} />
+              </Modal>
+            ) : null}
             <div
               ref={provided.innerRef}
               {...provided.draggableProps}
@@ -45,9 +53,16 @@ const Task = ({
                   <div className="status">
                     <div className="status-prioriry">
                       <ActiveStatus />
-                      {priority === 0 ? <PriorityNormal /> : <PriorityHigh />}
+                      {priority?.value === 0 ? (
+                        <PriorityNormal />
+                      ) : (
+                        <PriorityHigh />
+                      )}
                     </div>
-                    <div className="edit_task">
+                    <div
+                      onClick={() => setActiveEditModal(true)}
+                      className="edit_task"
+                    >
                       <svg
                         width="24"
                         height="24"
@@ -128,7 +143,12 @@ const Task = ({
                   </div>
                   <div className="task_buttons">
                     <button className="finished_task">Завершить</button>
-                    <button onClick={() => setActiveDeleteModal(true)} className="delete_task">Удалить</button>
+                    <button
+                      onClick={() => setActiveDeleteModal(true)}
+                      className="delete_task"
+                    >
+                      Удалить
+                    </button>
                   </div>
                 </div>
                 <div className="comments_container">
