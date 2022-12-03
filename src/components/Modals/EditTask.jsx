@@ -18,10 +18,6 @@ const EditTask = ({ taskId, setActive }) => {
     expirationDate,
   } = useSelector((state) => state.tasks).find(({ id }) => id === taskId);
 
-  useEffect(() => {
-    console.log('RENDER EDIT');
-  }, []);
-
   const dispatch = useDispatch();
 
   const [newDate, setNewDate] = useState(expirationDate);
@@ -46,9 +42,9 @@ const EditTask = ({ taskId, setActive }) => {
 
 
 
-  const deleteSelectedFile = (id) => {
+  const deleteSelectedFile = (id, setFiles) => {
     const newSelectedList = selectedFiles.filter((file) => file.id !== id);
-    setSelectedFiles(newSelectedList);
+    setFiles(newSelectedList);
   };
 
   return (
@@ -149,7 +145,8 @@ const EditTask = ({ taskId, setActive }) => {
                   className="delete_selected_file"
                   onClick={(e) => {
                     e.preventDefault();
-                    dispatch(deleteFile({ taskId, id, getFiles}));
+                    // dispatch(deleteFile({ taskId, id, getFiles}));
+                    deleteSelectedFile(id, setFiles)
                   }}
                 >
                   <svg
@@ -195,7 +192,7 @@ const EditTask = ({ taskId, setActive }) => {
                   </div>
                   <button
                     className="delete_selected_file"
-                    onClick={() => deleteSelectedFile(id)}
+                    onClick={() => deleteSelectedFile(id, setSelectedFiles)}
                   >
                     <svg
                       width="24"
