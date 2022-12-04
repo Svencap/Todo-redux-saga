@@ -7,6 +7,7 @@ import {
   DELETE_TASK,
   EDIT_FILE,
   SET_EDIT_TASK,
+  COMPLETE_TASK
 } from "../contants";
 
 const task = (state = [], { type, payload }) => {
@@ -27,11 +28,12 @@ const task = (state = [], { type, payload }) => {
       const { updateTasks } = payload;
       return [...updateTasks];
     case EDIT_FILE:
-      // console.log(payload);
-      // const replaceState = state.filter((task) => task.id !== payload.id);
       return state;
     case SET_EDIT_TASK:
         return [...payload];
+    case COMPLETE_TASK:
+      const { updatedTasks } = payload;
+      return [...updatedTasks];
     default:
       return state;
   }

@@ -10,6 +10,7 @@ import moment from "moment";
 import Modal from "./Modals/Modal";
 import DeleteTask from "./Modals/DeleteTask";
 import EditTask from "./Modals/EditTask";
+import CompleteTask from "./Modals/CompleteTask";
 
 const Task = ({
   id,
@@ -24,6 +25,7 @@ const Task = ({
 }) => {
   const [activeDeleteModal, setActiveDeleteModal] = useState(false);
   const [activeEditModal, setActiveEditModal] = useState(false);
+  const [activeCompleteModal, setActiveCompleteModal] = useState(false);
 
   return (
     <Draggable key={id} index={index} draggableId={id}>
@@ -36,6 +38,9 @@ const Task = ({
                 id={id}
                 files={files}
               />
+            </Modal>
+            <Modal active={activeCompleteModal} setActive={setActiveCompleteModal}>
+              <CompleteTask id={id} setActive={setActiveCompleteModal}/>
             </Modal>
             {activeEditModal ? (
               <Modal active={activeEditModal} setActive={setActiveEditModal}>
@@ -142,7 +147,7 @@ const Task = ({
                     {moment(expirationDate).locale("ru").format("l")}
                   </div>
                   <div className="task_buttons">
-                    <button className="finished_task">Завершить</button>
+                    <button onClick={() => setActiveCompleteModal(true)} className="finished_task">Завершить</button>
                     <button
                       onClick={() => setActiveDeleteModal(true)}
                       className="delete_task"

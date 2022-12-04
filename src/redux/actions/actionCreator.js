@@ -10,6 +10,7 @@ import {
   DELETE_FILE,
   EDIT_FILE,
   SET_EDIT_TASK,
+  COMPLETE_TASK,
 } from "../contants";
 
 export const getTasks = () => ({ type: GET_TASKS });
@@ -30,3 +31,5 @@ export const deleteFile = (payload) => ({ type: DELETE_FILE, payload });
 export const editTask = (payload) => ({ type: EDIT_FILE, payload });
 
 export const setEditTask = (payload) => ({ type: SET_EDIT_TASK, payload });
+
+export const completeTask = (payload) => ({ type: COMPLETE_TASK, payload });

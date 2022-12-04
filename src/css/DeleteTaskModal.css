@@ -66,3 +66,21 @@
 .close_delete_modal:hover {
   opacity: 0.5;
 }
+
+.complete {
+  all: unset;
+  font-size: 20px;
+  display: flex;
+  padding: 0px 10px 0px 10px;
+  align-items: center;
+  height: 35px;
+  border-radius: 6px;
+  background: #d1fadf;
+  color: #12b76a;
+  cursor: pointer;
+}
+
+.complete:hover {
+  background: #27c25b;
+  color: white;
+}

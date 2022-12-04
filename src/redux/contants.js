@@ -10,3 +10,4 @@ export const DELETE_FILE = 'DELETE_FILE';
 export const EDIT_FILE = 'EDIT_FILE';
 
 export const SET_EDIT_TASK = 'SET_EDIT_TASK';
+export const COMPLETE_TASK = 'COMPLETE_TASK';

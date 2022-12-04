@@ -1,5 +1,5 @@
 import { takeEvery, put, select } from "@redux-saga/core/effects";
-import { GET_TASKS, ADD_TASK, UPLOAD_FILES, CHANGE_STATUS_DEVELOPMENT, DELETE_TASK, EDIT_FILE} from "../contants";
+import { GET_TASKS, ADD_TASK, UPLOAD_FILES, CHANGE_STATUS_DEVELOPMENT, DELETE_TASK, EDIT_FILE, COMPLETE_TASK} from "../contants";
 import { getDataTasks } from "../functions/getDataTasks";
 import { addTaskToDB } from "../functions/addTaskToDB";
 import downloadFiles from "../functions/downloadFiles";
@@ -67,14 +67,15 @@ export function* workerEditTask({ payload }) {
     yield;
 }
 
+
+
 export function* watchSaga() {
     yield takeEvery(GET_TASKS, workerSaga);
     yield takeEvery(UPLOAD_FILES, workerAddTask);
     yield takeEvery(CHANGE_STATUS_DEVELOPMENT, workerUpdateTask);
     yield takeEvery(DELETE_TASK, workerDeleteTask);
     yield takeEvery(EDIT_FILE, workerEditTask);
-    // yield takeEvery(DELETE_SUBTASK, workerDeleteSubTask)
-    // yield takeEvery(DELETE_FILE, workerDeleteFile);
+    yield takeEvery(COMPLETE_TASK, workerUpdateTask);
 }
 
 export default function* rootSaga() {
