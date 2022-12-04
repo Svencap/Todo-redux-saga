@@ -8,7 +8,7 @@ import { changeStatusDevelopment } from "../redux/actions/actionCreator";
 import Task from "./Task";
 
 const TaskList = () => {
-  const tasks = useSelector((state) => state.tasks);
+  const tasks = useSelector((state) => state.tasks).sort((task1, task2) => task2.priority.value - task1.priority.value);
   const dispatch = useDispatch();
   const activeTasks = tasks.filter(({ status }) => status === "Queue");
   const developmentTasks = tasks.filter(

@@ -10,7 +10,8 @@ import deleteFileInStorage from "../functions/deleteFile";
 
 export function* workerSaga() {
     const data = yield getDataTasks();
-    yield put(setTasks(data));
+    const sortedData = data.sort((task1, task2) => task2.priority.value - task1.priority.value);
+    yield put(setTasks(sortedData));
 }
 
 export function* workerAddTask({ payload }) {
