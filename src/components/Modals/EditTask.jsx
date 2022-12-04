@@ -47,12 +47,15 @@ const EditTask = ({ taskId, setActive }) => {
     setFiles(newSelectedList);
   };
 
+  
+
   const editSubmit = (e) => {
     e.preventDefault();
     const reduceSubtasks = newSubTasks.map((task) => ({
       generalTaskId: id,
       id: task.id,
       name: task.name,
+      status: 'active',
     }));
     const data = {
       id,
@@ -67,6 +70,7 @@ const EditTask = ({ taskId, setActive }) => {
     };
 
     dispatch(editTask({ id, data }));
+    setActive(false);
   };
 
   return (
@@ -128,7 +132,7 @@ const EditTask = ({ taskId, setActive }) => {
                 if (newSubTitle.trim() !== "") {
                   setNewSubTask((prevTask) => [
                     ...prevTask,
-                    { id: v4(), name: newSubTitle },
+                    { id: v4(), name: newSubTitle, status: 'active'},
                   ]);
                   setNewSubTitle("");
                 }
