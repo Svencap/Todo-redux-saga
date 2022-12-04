@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import { v4 } from "uuid";
 import SelectPriority from "../SelectPriority";
 import SubTasks from "../SubTasks";
-import { deleteFile } from "../../redux/actions/actionCreator";
+// import { deleteFile } from "../../redux/actions/actionCreator";
+import { editTask } from "../../redux/actions/actionCreator";
 import "../../css/EditTaskModal.css";
 
 const EditTask = ({ taskId, setActive }) => {
@@ -16,11 +17,8 @@ const EditTask = ({ taskId, setActive }) => {
     subTasks,
     files,
     expirationDate,
+    createdDate,
   } = useSelector((state) => state.tasks).find(({ id }) => id === taskId);
-
-  useEffect(() => {
-    console.log('RENDER EDIT');
-  }, []);
 
   const dispatch = useDispatch();
 
@@ -44,16 +42,36 @@ const EditTask = ({ taskId, setActive }) => {
 
   const [getExpirationDate, setExpirationDate] = useState(expirationDate);
 
-
-
-  const deleteSelectedFile = (id) => {
+  const deleteSelectedFile = (id, setFiles) => {
     const newSelectedList = selectedFiles.filter((file) => file.id !== id);
-    setSelectedFiles(newSelectedList);
+    setFiles(newSelectedList);
+  };
+
+  const editSubmit = (e) => {
+    e.preventDefault();
+    const reduceSubtasks = newSubTasks.map((task) => ({
+      generalTaskId: id,
+      id: task.id,
+      name: task.name,
+    }));
+    const data = {
+      id,
+      title: newTitle,
+      description: newDescription,
+      files: getFiles?.length ? [...getFiles, ...selectedFiles] : [...selectedFiles],
+      subTasks: getSubtasks?.length ? [...getSubtasks, ...reduceSubtasks] : [...reduceSubtasks],
+      priority: getPriority,
+      status,
+      createdDate,
+      expirationDate: getExpirationDate,
+    };
+
+    dispatch(editTask({ id, data }));
   };
 
   return (
     <div className="add_task_form">
-      <form action="">
+      <form onSubmit={editSubmit} action="">
         <input
           className="form_task_title"
           type="text"
@@ -75,13 +93,24 @@ const EditTask = ({ taskId, setActive }) => {
           {getSubtasks?.length ? (
             <div className="subtasks">
               Список
-              <SubTasks key={'oldTasks'} edit={true} setNewTasks={setSubtasks} subTasks={getSubtasks} />
+              <SubTasks
+                key={"oldTasks"}
+                edit={true}
+                setNewTasks={setSubtasks}
+                subTasks={getSubtasks}
+              />
             </div>
           ) : null}
           {newSubTasks.length ? (
             <div className="subtasks">
               Новые подзадачи
-              <SubTasks key={'subtasks'} files={files} active={true} subTasks={newSubTasks} setNewTasks={setNewSubTask}/>
+              <SubTasks
+                key={"subtasks"}
+                files={files}
+                active={true}
+                subTasks={newSubTasks}
+                setNewTasks={setNewSubTask}
+              />
             </div>
           ) : null}
           <div className="subtasks_wrapper">
@@ -97,7 +126,10 @@ const EditTask = ({ taskId, setActive }) => {
               onClick={(e) => {
                 e.preventDefault();
                 if (newSubTitle.trim() !== "") {
-                  setNewSubTask((prevTask) => [...prevTask, {id: v4(), name: newSubTitle}]);
+                  setNewSubTask((prevTask) => [
+                    ...prevTask,
+                    { id: v4(), name: newSubTitle },
+                  ]);
                   setNewSubTitle("");
                 }
               }}
@@ -149,7 +181,8 @@ const EditTask = ({ taskId, setActive }) => {
                   className="delete_selected_file"
                   onClick={(e) => {
                     e.preventDefault();
-                    dispatch(deleteFile({ taskId, id, getFiles}));
+                    // dispatch(deleteFile({ taskId, id, getFiles}));
+                    deleteSelectedFile(id, setFiles);
                   }}
                 >
                   <svg
@@ -195,7 +228,7 @@ const EditTask = ({ taskId, setActive }) => {
                   </div>
                   <button
                     className="delete_selected_file"
-                    onClick={() => deleteSelectedFile(id)}
+                    onClick={() => deleteSelectedFile(id, setSelectedFiles)}
                   >
                     <svg
                       width="24"
@@ -252,6 +285,7 @@ const EditTask = ({ taskId, setActive }) => {
             show={show}
             setShow={setShow}
             priority={getPriority}
+            edit={true}
             setPriority={setPriority}
           />
         </div>
