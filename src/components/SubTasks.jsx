@@ -1,9 +1,4 @@
-import { useDispatch } from "react-redux";
-import { useState } from "react";
-import { deleteSubTask } from "../redux/actions/actionCreator";
-
 const SubTasks = ({ active, subTasks, edit, setNewTasks }) => {
-  const dispatch = useDispatch();
 
   const deleteSubtask = (subtaskId) => {
     const newTasks = subTasks.filter((task) => task.id !== subtaskId);

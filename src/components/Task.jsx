@@ -28,6 +28,7 @@ const Task = ({
   const [activeEditModal, setActiveEditModal] = useState(false);
   const [activeCompleteModal, setActiveCompleteModal] = useState(false);
 
+  // moment(createdDate).fromNow(true)
   return (
     <Draggable key={id} index={index} draggableId={id}>
       {(provided) => {

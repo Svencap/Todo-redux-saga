@@ -1,11 +1,12 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { v4 } from "uuid";
 import SelectPriority from "../SelectPriority";
 import SubTasks from "../SubTasks";
 // import { deleteFile } from "../../redux/actions/actionCreator";
 import { editTask } from "../../redux/actions/actionCreator";
 import "../../css/EditTaskModal.css";
+import moment from "moment/moment";
 
 const EditTask = ({ taskId, setActive }) => {
   const {
@@ -48,6 +49,8 @@ const EditTask = ({ taskId, setActive }) => {
   };
 
   
+  console.log(moment(createdDate).fromNow(true));
+
 
   const editSubmit = (e) => {
     e.preventDefault();

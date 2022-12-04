@@ -1,5 +1,5 @@
 import { takeEvery, put, select } from "@redux-saga/core/effects";
-import { GET_TASKS, ADD_TASK, UPLOAD_FILES, CHANGE_STATUS_DEVELOPMENT, DELETE_TASK, EDIT_FILE, COMPLETE_TASK} from "../contants";
+import { GET_TASKS, UPLOAD_FILES, CHANGE_STATUS_DEVELOPMENT, DELETE_TASK, EDIT_FILE, COMPLETE_TASK } from "../contants";
 import { getDataTasks } from "../functions/getDataTasks";
 import { addTaskToDB } from "../functions/addTaskToDB";
 import downloadFiles from "../functions/downloadFiles";
@@ -16,9 +16,9 @@ export function* workerSaga() {
 
 export function* workerAddTask({ payload }) {
     const { taskId, data } = payload;
-    const { id, title, description, expirationDate, priority, createdDate, status, subTasks, files } = data;
+    const { id, taskNumber, title, description, expirationDate, priority, createdDate, status, subTasks, files } = data;
     const filesUrl = yield downloadFiles(taskId, files);
-    const task = { id, title, description, expirationDate, priority, createdDate, status, subTasks, files: filesUrl };
+    const task = { id, title, description, taskNumber, expirationDate, priority, createdDate, status, subTasks, files: filesUrl };
     yield addTaskToDB(taskId, task);
     yield put(addTask(task));
     yield;

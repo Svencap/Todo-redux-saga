@@ -1,18 +1,17 @@
 import "../css/App.css";
-import Task from "./Task";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { getTasks, addTask } from "../redux/actions/actionCreator";
-import { v4 } from "uuid";
+import { getTasks } from "../redux/actions/actionCreator";
 import Modal from "./Modals/Modal";
 import AddTask from "./Modals/AddTask";
 import TaskList from "./TasksList";
-import DeleteTask from "./Modals/DeleteTask";
 
 function App() {
   const dispatch = useDispatch();
 
   const [modalActive, setModalActive] = useState(false);
+
+  const [filterSearch, setFilterSearch] = useState('');
 
   useEffect(() => {
     dispatch(getTasks());
@@ -33,10 +32,12 @@ function App() {
                 type="text"
                 className="input_search"
                 placeholder="Найти задачу"
+                value={filterSearch}
+                onChange={({ target }) => setFilterSearch(target.value)}
               />
             </div>
           </div>
-          <TaskList />
+          <TaskList search={filterSearch.trim()}/>
         </div>
         <Modal active={modalActive} setActive={setModalActive}>
           <AddTask active={modalActive} setActive={setModalActive} />
