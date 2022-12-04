@@ -8,6 +8,7 @@ import {
   DELETE_TASK,
   DELETE_SUBTASK,
   DELETE_FILE,
+  EDIT_FILE,
 } from "../contants";
 
 export const getTasks = () => ({ type: GET_TASKS });
@@ -24,3 +25,5 @@ export const changeStatusDevelopment = (payload) => ({
 export const deleteTask = (payload) => ({ type: DELETE_TASK, payload });
 export const deleteSubTask = (payload) => ({ type: DELETE_SUBTASK, payload });
 export const deleteFile = (payload) => ({ type: DELETE_FILE, payload });
+
+export const editTask = (payload) => ({ type: EDIT_FILE, payload });

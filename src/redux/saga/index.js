@@ -1,9 +1,9 @@
 import { takeEvery, put } from "@redux-saga/core/effects";
-import { GET_TASKS, ADD_TASK, UPLOAD_FILES, CHANGE_STATUS_DEVELOPMENT, DELETE_TASK, DELETE_SUBTASK, DELETE_FILE } from "../contants";
+import { GET_TASKS, ADD_TASK, UPLOAD_FILES, CHANGE_STATUS_DEVELOPMENT, DELETE_TASK, EDIT_FILE} from "../contants";
 import { getDataTasks } from "../functions/getDataTasks";
 import { addTaskToDB } from "../functions/addTaskToDB";
 import downloadFiles from "../functions/downloadFiles";
-import { setTasks, addTask } from "../actions/actionCreator";
+import { setTasks, addTask, editTask } from "../actions/actionCreator";
 import updateToDatabase from "../functions/updateTaskToDB";
 import deleteTask from "../functions/deleteTask";
 import deleteFileInStorage from "../functions/deleteFile";
@@ -48,11 +48,21 @@ export function* workerDeleteFile({ payload }) {
     yield deleteFileInStorage(taskId, id, getFiles);
 }
 
+
+export function* workerEditTask({ payload }) {
+    const { id, data } = payload;
+    console.log(id, data);
+    yield updateToDatabase(id, data);
+    yield editTask({ id, data });
+    yield;
+}
+
 export function* watchSaga() {
     yield takeEvery(GET_TASKS, workerSaga);
     yield takeEvery(UPLOAD_FILES, workerAddTask);
     yield takeEvery(CHANGE_STATUS_DEVELOPMENT, workerUpdateTask);
     yield takeEvery(DELETE_TASK, workerDeleteTask);
+    yield takeEvery(EDIT_FILE, workerEditTask);
     // yield takeEvery(DELETE_SUBTASK, workerDeleteSubTask)
     // yield takeEvery(DELETE_FILE, workerDeleteFile);
 }
