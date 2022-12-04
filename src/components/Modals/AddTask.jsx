@@ -1,7 +1,7 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 } from "uuid";
-import { addTask, uploadFiles } from "../../redux/actions/actionCreator";
+import { uploadFiles } from "../../redux/actions/actionCreator";
 import SubTasks from "../SubTasks";
 import "moment/locale/ru";
 import moment from "moment";
@@ -14,8 +14,6 @@ const AddTask = ({ active, setActive }) => {
   const [description, setDescription] = useState("");
   const [expirationDate, setExpirationDate] = useState("");
   const [files, setFiles] = useState([]);
-
-  const subtaskRef = useRef();
 
   const taskNumber = useSelector((state) => state.tasks).length;
 

@@ -23,7 +23,7 @@ const EditTask = ({ taskId, setActive }) => {
 
   const dispatch = useDispatch();
 
-  const [newDate, setNewDate] = useState(expirationDate);
+  // const [newDate, setNewDate] = useState(expirationDate);
 
   const [newTitle, setNewTitle] = useState(title);
   const [newDescription, setNewDescription] = useState(description);
