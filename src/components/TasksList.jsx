@@ -50,6 +50,7 @@ const TaskList = () => {
                     expirationDate={task.expirationDate}
                     files={task.files}
                     index={idx}
+                    status={task.status}
                     priority={task.priority}
                   />
                 ))}
@@ -79,6 +80,7 @@ const TaskList = () => {
                     index={idx}
                     createdDate={task.createdDate}
                     priority={task.priority}
+                    status={task.status}
                   />
                 ))}
                 {provided.placeholder}
@@ -105,6 +107,7 @@ const TaskList = () => {
                     expirationDate={task.expirationDate}
                     files={task.files}
                     index={idx}
+                    status={task.status}
                     priority={task.priority}
                   />
                 ))}
