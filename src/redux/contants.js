@@ -8,3 +8,5 @@ export const DELETE_TASK = 'DELETE_TASK';
 export const DELETE_SUBTASK = 'DELETE_SUBTASK';
 export const DELETE_FILE = 'DELETE_FILE';
 export const EDIT_FILE = 'EDIT_FILE';
+
+export const SET_EDIT_TASK = 'SET_EDIT_TASK';

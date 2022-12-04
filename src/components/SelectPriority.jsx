@@ -1,12 +1,13 @@
-const SelectPriority = ({ show, setShow, priority, setPriority }) => {
+const SelectPriority = ({ show, setShow, priority, setPriority, edit }) => {
   const ulDisplay = { display: show ? "block" : "none" };
+  
   return (
     <div
       className={show ? "select-menu active" : "select-menu"}
       onClick={() => (show ? setShow(false) : setShow(true))}
     >
       <div className="select-btn">
-        <span className="sBtn-text">{priority.text}</span>
+        {edit && priority.value === 0 ? <span className="sBtn-text">Низкий</span> : <span className="sBtn-text">{priority.text}</span>}
         <i className="bx bx-chevron-down">
           <svg
             width="18"

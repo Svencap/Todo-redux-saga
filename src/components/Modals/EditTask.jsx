@@ -58,14 +58,14 @@ const EditTask = ({ taskId, setActive }) => {
       id,
       title: newTitle,
       description: newDescription,
-      files: [...getFiles, ...selectedFiles],
+      files: getFiles?.length ? [...getFiles, ...selectedFiles] : [...selectedFiles],
       subTasks: getSubtasks?.length ? [...getSubtasks, ...reduceSubtasks] : [...reduceSubtasks],
       priority: getPriority,
       status,
       createdDate,
       expirationDate: getExpirationDate,
     };
-    console.log(data);
+
     dispatch(editTask({ id, data }));
   };
 
@@ -285,6 +285,7 @@ const EditTask = ({ taskId, setActive }) => {
             show={show}
             setShow={setShow}
             priority={getPriority}
+            edit={true}
             setPriority={setPriority}
           />
         </div>
