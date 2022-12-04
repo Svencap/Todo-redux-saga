@@ -31,7 +31,7 @@ const AddTask = ({ active, setActive }) => {
     if (typeof name === 'object') {
       return name;
     }
-    return { generalTaskId: id, id: v4(), name };
+    return { generalTaskId: id, id: v4(), name, status: 'active' };
   });
 
 
