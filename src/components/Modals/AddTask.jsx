@@ -1,7 +1,7 @@
-import { useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { v4 } from "uuid";
-import { addTask, uploadFiles } from "../../redux/actions/actionCreator";
+import { uploadFiles } from "../../redux/actions/actionCreator";
 import SubTasks from "../SubTasks";
 import "moment/locale/ru";
 import moment from "moment";
@@ -15,7 +15,7 @@ const AddTask = ({ active, setActive }) => {
   const [expirationDate, setExpirationDate] = useState("");
   const [files, setFiles] = useState([]);
 
-  const subtaskRef = useRef();
+  const taskNumber = useSelector((state) => state.tasks).length;
 
   const [subTaskTitle, setSubTaskTitle] = useState("");
   const [subTasks, setSubTasks] = useState([]);
@@ -39,6 +39,7 @@ const AddTask = ({ active, setActive }) => {
     e.preventDefault();
     const data = {
       id,
+      taskNumber: taskNumber + 1,
       title,
       description,
       files,
@@ -57,6 +58,10 @@ const AddTask = ({ active, setActive }) => {
     setSubTaskTitle('');
     setSubTasks([]);
     setActive(false);
+    setPriority({
+      value: 0,
+      text: "Выберите приоритет",
+    });
   };
 
   const [show, setShow] = useState(false);
@@ -73,6 +78,7 @@ const AddTask = ({ active, setActive }) => {
         <input
           className="form_task_title"
           type="text"
+          value={title}
           placeholder="Название задачи"
           required
           onChange={(e) => setTitle(e.target.value)}
@@ -83,6 +89,7 @@ const AddTask = ({ active, setActive }) => {
           id=""
           cols="10"
           placeholder="Описание задачи"
+          value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
         <div className="sub_tasks_container">
@@ -222,6 +229,7 @@ const AddTask = ({ active, setActive }) => {
             onChange={(e) => setExpirationDate(e.target.value)}
             name=""
             id="data"
+            value={expirationDate}
             required
           />
         </div>

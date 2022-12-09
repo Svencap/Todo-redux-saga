@@ -17,7 +17,7 @@ const task = (state = [], { type, payload }) => {
     case SET_TASKS:
       return [...payload];
     case ADD_TASK:
-      return [...state, payload];
+      return [payload, ...state];
     case DELETE_TASK:
       const { id } = payload;
       const filterTasks = state.filter((task) => task.id !== id);

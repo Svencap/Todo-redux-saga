@@ -19,6 +19,7 @@ const Task = ({
   expirationDate,
   createdDate,
   subTasks,
+  status,
   files,
   index,
   priority,
@@ -27,6 +28,7 @@ const Task = ({
   const [activeEditModal, setActiveEditModal] = useState(false);
   const [activeCompleteModal, setActiveCompleteModal] = useState(false);
 
+  // moment(createdDate).fromNow(true)
   return (
     <Draggable key={id} index={index} draggableId={id}>
       {(provided) => {
@@ -39,8 +41,11 @@ const Task = ({
                 files={files}
               />
             </Modal>
-            <Modal active={activeCompleteModal} setActive={setActiveCompleteModal}>
-              <CompleteTask id={id} setActive={setActiveCompleteModal}/>
+            <Modal
+              active={activeCompleteModal}
+              setActive={setActiveCompleteModal}
+            >
+              <CompleteTask id={id} setActive={setActiveCompleteModal} />
             </Modal>
             {activeEditModal ? (
               <Modal active={activeEditModal} setActive={setActiveEditModal}>
@@ -64,26 +69,28 @@ const Task = ({
                         <PriorityHigh />
                       )}
                     </div>
-                    <div
-                      onClick={() => setActiveEditModal(true)}
-                      className="edit_task"
-                    >
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
+                    {status !== "Done" ? (
+                      <div
+                        onClick={() => setActiveEditModal(true)}
+                        className="edit_task"
                       >
-                        <path
-                          d="M11.0487 3.35143H5.04873C3.06051 3.35143 1.44873 4.96321 1.44873 6.95143V18.9515C1.44873 20.9398 3.06051 22.5515 5.04873 22.5515H17.0487C19.037 22.5515 20.6487 20.9398 20.6487 18.9515L20.6487 12.9515M7.44873 16.5514L11.8147 15.6717C12.0465 15.625 12.2593 15.5109 12.4264 15.3437L22.2001 5.56461C22.6687 5.09576 22.6684 4.33577 22.1994 3.86731L20.129 1.79923C19.6602 1.33097 18.9006 1.33129 18.4322 1.79995L8.65749 11.58C8.49068 11.7469 8.37678 11.9593 8.33003 12.1906L7.44873 16.5514Z"
-                          stroke="black"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </div>
+                        <svg
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M11.0487 3.35143H5.04873C3.06051 3.35143 1.44873 4.96321 1.44873 6.95143V18.9515C1.44873 20.9398 3.06051 22.5515 5.04873 22.5515H17.0487C19.037 22.5515 20.6487 20.9398 20.6487 18.9515L20.6487 12.9515M7.44873 16.5514L11.8147 15.6717C12.0465 15.625 12.2593 15.5109 12.4264 15.3437L22.2001 5.56461C22.6687 5.09576 22.6684 4.33577 22.1994 3.86731L20.129 1.79923C19.6602 1.33097 18.9006 1.33129 18.4322 1.79995L8.65749 11.58C8.49068 11.7469 8.37678 11.9593 8.33003 12.1906L7.44873 16.5514Z"
+                            stroke="black"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </div>
+                    ) : null}
                   </div>
                   <span className="title_task">{title}</span>
                   <span className="created_date">
@@ -147,7 +154,14 @@ const Task = ({
                     {moment(expirationDate).locale("ru").format("l")}
                   </div>
                   <div className="task_buttons">
-                    <button onClick={() => setActiveCompleteModal(true)} className="finished_task">Завершить</button>
+                    {status !== "Done" ? (
+                      <button
+                        onClick={() => setActiveCompleteModal(true)}
+                        className="finished_task"
+                      >
+                        Завершить
+                      </button>
+                    ) : null}
                     <button
                       onClick={() => setActiveDeleteModal(true)}
                       className="delete_task"

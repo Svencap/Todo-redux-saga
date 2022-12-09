@@ -1,14 +1,18 @@
 import { useSelector, useDispatch } from "react-redux";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import onDragEnd from "../redux/functions/onDragEnd";
-import { addTask } from "../redux/actions/actionCreator";
+// import { addTask } from "../redux/actions/actionCreator";
 import { sortedTaks } from "../redux/actions/actionCreator";
 import { changeStatusDevelopment } from "../redux/actions/actionCreator";
 
 import Task from "./Task";
 
-const TaskList = () => {
-  const tasks = useSelector((state) => state.tasks);
+const TaskList = ({ search }) => {
+  let tasks = useSelector((state) => state.tasks).sort((task1, task2) => task2.priority.value - task1.priority.value);
+
+  if (search.length) {
+    tasks = tasks.filter(({ title, taskNumber }) => title === search || taskNumber === Number(search));
+  }
   const dispatch = useDispatch();
   const activeTasks = tasks.filter(({ status }) => status === "Queue");
   const developmentTasks = tasks.filter(
@@ -50,6 +54,7 @@ const TaskList = () => {
                     expirationDate={task.expirationDate}
                     files={task.files}
                     index={idx}
+                    status={task.status}
                     priority={task.priority}
                   />
                 ))}
@@ -79,6 +84,7 @@ const TaskList = () => {
                     index={idx}
                     createdDate={task.createdDate}
                     priority={task.priority}
+                    status={task.status}
                   />
                 ))}
                 {provided.placeholder}
@@ -105,6 +111,7 @@ const TaskList = () => {
                     expirationDate={task.expirationDate}
                     files={task.files}
                     index={idx}
+                    status={task.status}
                     priority={task.priority}
                   />
                 ))}
